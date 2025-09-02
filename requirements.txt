@@ -6,8 +6,8 @@ djangorestframework==3.16.1
 git-filter-repo==2.47.0
 gunicorn==23.0.0
 packaging==25.0
-psycopg==3.2.9
 psycopg-pool==3.2.6
+psycopg2-binary==2.9.10
 pydantic==2.11.7
 pydantic_core==2.33.2
 python-dotenv==1.1.1
