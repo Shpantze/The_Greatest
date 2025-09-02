@@ -28,45 +28,6 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Diagnostic code - remove this after debugging
-database_url = os.environ.get('DATABASE_URL')
-print(f"DATABASE_URL type: {type(database_url)}")
-print(f"DATABASE_URL repr: {repr(database_url)}")
-print(f"DATABASE_URL length: {len(database_url) if database_url else 'None'}")
-
-# Let's see ALL environment variables available to your Django service
-print("=== COMPLETE ENVIRONMENT VARIABLE AUDIT ===")
-all_env_vars = dict(os.environ)
-
-# Look for any variables that might be database-related
-database_related = {k: v for k, v in all_env_vars.items() 
-                   if any(keyword in k.lower() for keyword in 
-                         ['database', 'db', 'postgres', 'pg', 'sql'])}
-
-print(f"Total environment variables: {len(all_env_vars)}")
-print(f"Database-related variables found: {len(database_related)}")
-
-if database_related:
-    print("\nDatabase-related environment variables:")
-    for key, value in database_related.items():
-        # Hide sensitive information but show structure
-        if 'password' in key.lower() or 'secret' in key.lower():
-            print(f"  {key}: [HIDDEN - length {len(value)}]")
-        else:
-            print(f"  {key}: {value[:50]}{'...' if len(value) > 50 else ''}")
-else:
-    print("\nNo database-related environment variables found!")
-
-# Let's also check for Railway-specific variables
-railway_vars = {k: v for k, v in all_env_vars.items() if k.startswith('RAILWAY')}
-print(f"\nRailway-specific variables: {len(railway_vars)}")
-for key, value in railway_vars.items():
-    print(f"  {key}: {value}")
-
-# Check if it starts with expected scheme
-if database_url:
-    print(f"First 20 characters: {repr(database_url[:20])}")
-
 ALLOWED_HOSTS = ["*"]
 
 
@@ -118,7 +79,7 @@ WSGI_APPLICATION = 'main_dir.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL'),
+        os.environ.get('DB_URL'),
         conn_max_age=600,
         conn_health_checks=True,
     )
