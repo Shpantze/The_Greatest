@@ -28,6 +28,16 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Diagnostic code - remove this after debugging
+database_url = os.environ.get('DATABASE_URL')
+print(f"DATABASE_URL type: {type(database_url)}")
+print(f"DATABASE_URL repr: {repr(database_url)}")
+print(f"DATABASE_URL length: {len(database_url) if database_url else 'None'}")
+
+# Check if it starts with expected scheme
+if database_url:
+    print(f"First 20 characters: {repr(database_url[:20])}")
+
 ALLOWED_HOSTS = ["*"]
 
 
