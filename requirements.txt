@@ -1,5 +1,6 @@
 annotated-types==0.7.0
 asgiref==3.9.1
+dj-database-url==3.0.1
 Django==5.2.5
 djangorestframework==3.16.1
 git-filter-repo==2.47.0
