@@ -77,13 +77,17 @@ WSGI_APPLICATION = 'main_dir.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+if 'RAILWAY_ENVIRONMENT' in os.environ:
+    # On Railway, use DATABASE_URL provided by Railway environment
+    DATABASES = {
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600, conn_health_checks=True)
+    }
+else:
+    # Local development - default local Postgres URL or manual setup
+    local_db_url = 'postgres://u0_a331@localhost:5432/greatest_dev'
+    DATABASES = {
+        'default': dj_database_url.config(default=local_db_url, conn_max_age=600, conn_health_checks=True)
+    }
 
 
 # Password validation
