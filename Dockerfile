@@ -30,4 +30,4 @@ COPY . /app/
 EXPOSE 8080
 
 # Run Django migrations and start Gunicorn WSGI server
-CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic && gunicorn main_dir.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --no-input && gunicorn main_dir.wsgi:application"]
