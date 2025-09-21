@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse(status=200)
+    return HttpResponse("Shabloaww")
